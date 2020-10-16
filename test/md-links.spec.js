@@ -1,10 +1,14 @@
-const mdLinks = require('../');
+const { vol, fs } = require('memfs');
+const { path, testFiles } = require('../__mocks__/mdLinks.mock');
+const { mdLinks, isDirectory } = require("../mdLinks");
+// jest.mock("../mdLinks")
 
+console.log(path);
 
-describe('mdLinks', () => {
-
-  it('should...', () => {
-    console.log('FIX ME!');
+describe('isDirectory', () => {
+  it('debe resolver un booleano', () => {
+    return isDirectory(path).then(directory => {
+      expect(directory).toBe(Boolean);
+    })
   });
-
 });
