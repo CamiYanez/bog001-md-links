@@ -2,7 +2,7 @@ const { vol, fs } = require('memfs');
 const path = '/app'
 const testFiles = vol.fromJSON(
     {
-        './README.md': '1',
+        './README.md': '[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado ligero muy popular entre developers.',
         './src/index.js': '2',
         './pruebas.js': '3',
     },

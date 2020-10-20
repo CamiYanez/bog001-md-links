@@ -1,24 +1,21 @@
 module.exports = {
     mdLinks,
-    isDirectory
+    isDirectory,
+    validateExtDir,
+    validateExtFile,
+    dataLinks,
+    httpRequest,
+    httpCallback,
+    httpErrorCallback
 }
 
 const fs = require('fs');
-// const { argv } = require('process');
 const pathModule = require('path')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const MarkdownIt = require('markdown-it')
 const https = require('https');
 const http = require('http');
-
-// const path = argv[2];
-
-// mdLinks(path, true)
-//     .then(dataLinks => {
-//         console.log(dataLinks);
-//     });
-
 
 function mdLinks(path, validate) {
     return isDirectory(path)
