@@ -35,7 +35,7 @@ _______________________________________________________________________________
 
 ### Diagrama de flujo
 
-![Diagrama de flujo]("diagram.png")
+![Diagrama de flujo](diagram.png)
 
 ### Backlog
 
