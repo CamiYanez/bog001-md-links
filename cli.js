@@ -1,13 +1,13 @@
 let { mdLinks } = require('./mdLinks');
 const { argv } = require('process');
 const path = argv[2];
-const fs = require('fs');
 const options = {
     validate: argv.includes("--validate"),
     stats: argv.includes("--stats")
 };
 
-mdLinks(path, true)
+const option = { validate: true }
+mdLinks(path, option)
     .then(dataLinks => {
         cli(dataLinks, options)
     });
@@ -39,7 +39,7 @@ function cli(data, options) {
     }
     if (options.validate == false && options.stats == true) {
         console.log("Total Links: " + totalLinks);
-        console.log("Links Unique: " + totalUnique);
+        console.log("Unique Links: " + totalUnique);
 
 
         //retorna string con: Total = total de links encontrados, Unique= links unicos encontrados
@@ -54,7 +54,7 @@ function cli(data, options) {
         });
 
         console.log("Total Links: " + totalLinks);
-        console.log("Links Unique: " + totalUnique);
+        console.log("Unique Links: " + totalUnique);
         console.log("Broken Links: " + countBrokenLinks);
         //retorna string con total de links encontrados, links unicos encontrados, links rotos encontrados
     }

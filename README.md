@@ -3,16 +3,14 @@
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-* [4. Consideraciones generales](#4-consideraciones-generales)
-* [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
-* [6. Entregables](#6-entregables)
-* [7. Hacker edition](#7-hacker-edition)
-* [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
-* [9. Checklist](#9-checklist)
+* [2. Plan de acción](#2-plan-de-acción)
+* [3. Objetivos de aprendizaje de este proyecto](#3-objetivos-de-aprendizaje-de-este-proyecto)
+* [4. Checklist de entregables](#4-check-list-de-entregables)
+* [5. Instrucciones de instalación de la librería](#5-instrucciones-de-instalación-de-la-librería)
+* [6. Instrucciones de uso desde la línea de comandos](#6-instrucciones-de-uso-desde-la-línea-de-comandos)
+* [7. Instrucciones de uso para importar con require](#7-instrucciones-de-uso-para-importar-con-require)
 
-***
+_______________________________________________________________________________
 
 ## 1. Preámbulo
 
@@ -31,27 +29,51 @@ herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
 
+_______________________________________________________________________________
 
 ## 2. Plan de acción
 
 ### Diagrama de flujo
+
 ![Diagrama de flujo]("./diagram.png")
 
 ### Backlog
 
 #### Sprint 1
-* [x] Investigar sobre node.js (NodeSchool workshopper learnyounode)
+* [x] Investigar sobre node.js (NodeSchool workshopper learnyounode).
 
 #### Sprint 2
-* [x] Definir diferentes comandos de entrada posibles para mi programa
-* [x] Hacer diagrama de flujo
-* [x] Realizar función para verificar si la ruta ingresada existe y comprobar si es archivo o directorio
-* [x] Utilizar file system (Fs) para leer un archivo o directorio, según sea el caso
+* [x] Definir diferentes comandos de entrada posibles para mi programa.
+* [x] Hacer diagrama de flujo.
+* [x] Realizar función para verificar si la ruta ingresada existe y comprobar si es archivo o directorio.
+* [x] Utilizar file system (Fs) para leer un archivo o directorio, según sea el caso.
 * [x] Verificar que el o los archivos tengan extensión .md
+* [x] Investigar como poder extraer los links del archivo markdown.
 
+#### Sprint 3
+* [x] Probar módulo markdown-it.
+* [x] Convertir archivo markdown a Html con propiedad render de markdown-it.
+* [x] Simular un DOM con el html generado por markdown-it, utilizando la libreria **JSDOM**, y así poder usar la propiedad windows de ese DOM para acceder window.querySelectorAll para extraer todos los links del archivo.
+* [x] Generar un array que contenga un objeto con las propiedades href, text y file por cada uno de los links encontrados.
+* [x] Investigar sobre librerias para hacer solicitudes HTTP.
+* [x] Investigar sobre el método get de Node.js 
+* [x] Hacer condicional para definir cuales links usan protocolo http y cuales https y emplear el método get para hacer las solcitudes correspondientes.
+* [x] Agregar las propiedades status y ok a los objetos de los links.
 
+#### Sprint 4
+* [x] Refactorizar y pasar todo el código a promesas 
+* [x] Crear módulo (exportar función mdLinks).
+* [x] Crear archivo **cli.js** y requerir el módulo mdLinks.
+* [x] Consumir la promesa que devuelve el módulo mdLinks.
+* [x] Crear función con cuatro condicionales de acuerdo a las posibles entradas que se pueden tener.
 
+#### Sprint 5
+* [x] Hacer conteo de total de links, links rotos y links unicos.
+* [x] Realizar test unitarios y asíncronos de las funciones en mdLinks.js.
+* [x] Manejo de errores que faltaban.
+* [x] Documentación y README.
 
+_______________________________________________________________________________
 
 ## 3. Objetivos de aprendizaje de este proyecto
 
@@ -107,131 +129,9 @@ algunas estadísticas.
 
 * [ ] [Recursión.](https://www.youtube.com/watch?v=lPPgY3HLlhQ)
 
-***
+_______________________________________________________________________________
 
-
-### Archivos del proyecto
-
-* `README.md` con descripción del módulo, instrucciones de instalación/uso,
-  documentación del API y ejemplos. Todo lo relevante para que cualquier
-  developer que quiera usar tu librería pueda hacerlo sin inconvenientes.
-
-
-### JavaScript API
-
-El módulo debe poder importarse en otros scripts de Node.js y debe ofrecer la
-siguiente interfaz:
-
-#### `mdLinks(path, options)`
-
-##### Argumentos
-
-* `path`: Ruta absoluta o relativa al archivo o directorio. Si la ruta pasada es
-  relativa, debe resolverse como relativa al directorio desde donde se invoca
-  node - _current working directory_).
-* `options`: Un objeto con las siguientes propiedades:
-  - `validate`: Booleano que determina si se desea validar los links
-    encontrados.
-
-##### Valor de retorno
-
-La función debe retornar una promesa (`Promise`) que resuelva a un arreglo
-(`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
-las siguientes propiedades:
-
-* `href`: URL encontrada.
-* `text`: Texto que aparecía dentro del link (`<a>`).
-* `file`: Ruta del archivo donde se encontró el link.
-
-#### Ejemplo
-
-```js
-const mdLinks = require("md-links");
-
-mdLinks("./some/example.md")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
-
-mdLinks("./some/example.md", { validate: true })
-  .then(links => {
-    // => [{ href, text, file, status, ok }]
-  })
-  .catch(console.error);
-
-mdLinks("./some/dir")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
-```
-
-### CLI (Command Line Interface - Interfaz de Línea de Comando)
-
-El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente
-manera a través de la terminal:
-
-`md-links <path-to-file> [options]`
-
-Por ejemplo:
-
-```sh
-$ md-links ./some/example.md
-./some/example.md http://algo.com/2/3/ Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html algún doc
-./some/example.md http://google.com/ Google
-```
-
-El comportamiento por defecto no debe validar si las URLs responden ok o no,
-solo debe identificar el archivo markdown (a partir de la ruta que recibe como
-argumento), analizar el archivo Markdown e imprimir los links que vaya
-encontrando, junto con la ruta del archivo donde aparece y el texto
-que hay dentro del link (truncado a 50 caracteres).
-
-#### Options
-
-##### `--validate`
-
-Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP para
-averiguar si el link funciona o no. Si el link resulta en una redirección a una
-URL que responde ok, entonces consideraremos el link como ok.
-
-Por ejemplo:
-
-```sh
-$ md-links ./some/example.md --validate
-./some/example.md http://algo.com/2/3/ ok 200 Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
-./some/example.md http://google.com/ ok 301 Google
-```
-
-Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de
-la URL, así como el status de la respuesta recibida a la petición HTTP a dicha
-URL.
-
-##### `--stats`
-
-Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas
-básicas sobre los links.
-
-```sh
-$ md-links ./some/example.md --stats
-Total: 3
-Unique: 3
-```
-
-También podemos combinar `--stats` y `--validate` para obtener estadísticas que
-necesiten de los resultados de la validación.
-
-```sh
-$ md-links ./some/example.md --stats --validate
-Total: 3
-Unique: 3
-Broken: 1
-```
-
-## 9. Checklist
+## 4. Checklist de entregables
 
 ### General
 
@@ -239,16 +139,16 @@ Broken: 1
 
 ### `README.md`
 
-* [ ] Un board con el backlog para la implementación de la librería.
-* [ ] Documentación técnica de la librería.
-* [ ] Guía de uso e instalación de la librería
+* [x] Un board con el backlog para la implementación de la librería.
+* [x] Documentación técnica de la librería.
+* [x] Guía de uso e instalación de la librería
 
 ### API `mdLinks(path, opts)`
 
-* [ ] El módulo exporta una función con la interfaz (API) esperada.
-* [ ] Implementa soporte para archivo individual
-* [ ] Implementa soporte para directorios
-* [ ] Implementa `options.validate`
+* [x] El módulo exporta una función con la interfaz (API) esperada.
+* [x] Implementa soporte para archivo individual
+* [x] Implementa soporte para directorios
+* [x] Implementa `options.validate`
 
 ### CLI
 
@@ -263,13 +163,94 @@ Broken: 1
   lines, y branches.
 * [x] Pasa tests (y linters) (`npm test`).
 
-
 _______________________________________________________________________________
 
-## Instrucciones de instalación de la librería: 
+## 5. Instrucciones de instalación de la librería: 
 
+Para instalar el módulo debes escribir en la terminal:
 
-Debe ejecutar el programa de la siguiente manera a través de la terminal:
+                  **npm install CamiYanez/md-links**
+
+Luego de instalarlo puedes ejecutar el programa de la siguiente manera a través de la terminal:
 
                   md-links <path-to-file> [options]
 
+O puedes usarlo con require desde tu archivo de la siguiente manera:
+
+                  const { mdLinks } = require('./mdLinks')
+
+_______________________________________________________________________________
+
+## 6. Instrucciones de uso desde la línea de comandos 
+
+Tienes cuatro posibles opciones de respuesta de acuerdo al comando que ejecutes a través de tu terminal, la estructura del comando debe ser `md-links <path> [options]` donde `path` es la ruta al archivo o directorio, y `options` puede ser `--validate` y/o `--stats` (**este parametro es opcional**).
+
+#### Opción 1: md-links <path>
+Por ejemplo: $ md-links ./some/example.md
+
+En caso de no especificar options la salida será un array de objetos donde cada objeto correspondera a un link con las siguientes propiedades:
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+
+#### Opción 2: md-links <path> --validate
+Por ejemplo: $ md-links ./some/example.md --validate
+
+En caso de especificar unicamente la opción validate la salida será un array de objetos donde cada objeto correspondera a un link con las siguientes propiedades:
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+* `status`: Código de estado de respuesta de la petición HTTP a la URL encontrada. 
+* `ok`: Depende del status, será ok si la petición fue exitosa y fail si hubo algún problema.
+
+#### Opción 3: md-links <path> --stats
+Por ejemplo: $ md-links ./some/example.md --stats
+
+En caso de especificar unicamente la opción stats la salida será la estadistica del total de links encontrados y la cantidad de links unicos encontrados.
+```
+Total Links: 3
+Unique Links: 3
+```
+
+#### Opción 4: md-links <path> --validate --stats
+Por ejemplo: $ md-links ./some/example.md --validate --stats
+
+En caso de especificar ambas opciones la salida será el total de links, links unicos, y links rotos encontrados.
+```
+Total Links: 3
+Unique Links: 3
+Broken Links: 1
+```
+
+#### Recuerda asegurarte de que la ruta ingresada sea valida.
+
+_______________________________________________________________________________
+
+## 7. Instrucciones de uso para importar con require 
+Para usar el módulo dentro de tu código puedes importarlo de la siguiente manera: `const { mdLinks } = require('./mdLinks')`
+
+mdLinks es una función que recibe dos parametros `mdLinks(path, option)` donde `path` es la ruta al archivo o directorio y `option` es un objeto con una propiedad llamada `validate` que debe contener un Booleano que sea true si deseas validar los links encontrados o false si no.
+
+Esta función retorna una promesa que resuelve un array de objetos, cada objeto representa un link, y las propiedades de estos objetos varian de acuerdo al parametro options, si es `false` tendrá las propiedades href, text y file, pero si es `true` tendrá las propiedades href, text, file, status y ok, donde: 
+
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+* `status`: Código de estado de respuesta de la petición HTTP a la URL encontrada. 
+* `ok`: Depende del status, será ok si la petición fue exitosa y fail si hubo algún problema.
+
+#### Para consumir la promesa
+```
+mdLinks(path, option)
+    .then(links => {
+        console.log(links)
+    });
+```
+#### Ejemplo:
+```
+mdLinks("./some/example.md", { validate: true })
+  .then(links => {
+    // => [{ href, text, file, status, ok }]
+  })
+```
+links es el array de objetos que mencionabamos anteriormente, ya puedes usar esta data para lo que necesites.

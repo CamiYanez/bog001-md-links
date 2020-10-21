@@ -17,7 +17,8 @@ const MarkdownIt = require('markdown-it')
 const https = require('https');
 const http = require('http');
 
-function mdLinks(path, validate) {
+function mdLinks(path, option) {
+    const validate = option.validate;
     return isDirectory(path)
         .then((directory) => {
             if (directory) {
@@ -59,6 +60,9 @@ function validateExtDir(path) {
                     sources.push(src);
                 }
             });
+            if (sources == []) {
+                return reject(new Error("No hay ningún archivo con extensión .md en el directorio indicado"))
+            }
             resolve(sources);
         })
     })
