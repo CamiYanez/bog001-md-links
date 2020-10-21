@@ -169,7 +169,7 @@ _______________________________________________________________________________
 
 Para instalar el módulo debes escribir en la terminal:
 
-                  npm install CamiYanez/md-links
+                  npm install CamiYanez/bog001-md-links
 
 Luego de instalarlo puedes ejecutar el programa de la siguiente manera a través de la terminal:
 
@@ -177,7 +177,7 @@ Luego de instalarlo puedes ejecutar el programa de la siguiente manera a través
 
 O puedes usarlo con require desde tu archivo js de la siguiente manera:
 
-                  const { mdLinks } = require('./mdLinks')
+                  const { mdLinks } = require('@CamiYanez/mdLinks')
 
 _______________________________________________________________________________
 
