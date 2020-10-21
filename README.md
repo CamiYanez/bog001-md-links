@@ -35,7 +35,7 @@ _______________________________________________________________________________
 
 ### Diagrama de flujo
 
-![Diagrama de flujo]("https://github.com/CamiYanez/bog001-md-links/blob/master/diagram.png")
+![Diagrama de flujo]("diagram.png")
 
 ### Backlog
 
