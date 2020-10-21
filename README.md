@@ -35,7 +35,7 @@ _______________________________________________________________________________
 
 ### Diagrama de flujo
 
-![Diagrama de flujo]("./diagram.png")
+![Diagrama de flujo]("https://github.com/CamiYanez/bog001-md-links/blob/Dev/diagram.png")
 
 ### Backlog
 
@@ -169,13 +169,13 @@ _______________________________________________________________________________
 
 Para instalar el módulo debes escribir en la terminal:
 
-                  **npm install CamiYanez/md-links**
+                  npm install CamiYanez/md-links
 
 Luego de instalarlo puedes ejecutar el programa de la siguiente manera a través de la terminal:
 
                   md-links <path-to-file> [options]
 
-O puedes usarlo con require desde tu archivo de la siguiente manera:
+O puedes usarlo con require desde tu archivo js de la siguiente manera:
 
                   const { mdLinks } = require('./mdLinks')
 
@@ -183,7 +183,7 @@ _______________________________________________________________________________
 
 ## 6. Instrucciones de uso desde la línea de comandos 
 
-Tienes cuatro posibles opciones de respuesta de acuerdo al comando que ejecutes a través de tu terminal, la estructura del comando debe ser `md-links <path> [options]` donde `path` es la ruta al archivo o directorio, y `options` puede ser `--validate` y/o `--stats` (**este parametro es opcional**).
+Tienes cuatro posibles opciones de respuesta de acuerdo al comando que ejecutes a través de tu terminal, la estructura del comando debe ser `md-links <path> [options]` donde `path` es la ruta al archivo o directorio, y `options` puede ser `--validate` y/o `--stats` (**este parámetro es opcional**).
 
 #### Opción 1: md-links <path>
 Por ejemplo: $ md-links ./some/example.md
