@@ -1,6 +1,13 @@
 {
   "name": "md-links",
   "version": "0.1.0",
+  "bin": "cli.js",
+  "description": "Libreria para analizar archivos Markdown e imprimir los links encontrados dentro de este, junto con la ruta del archivo donde aparece y el texto que hay dentro del link, también cuenta con una opción validate, que adicionalmente hace una petición http a cada uno de los links encontrados y devuelve el código de status de la petición y una opción stats, que devuelve las estadisticas del total de links encontrados, unicos y rotos",
+  "author": {
+    "name": "Cami Yánez",
+    "email": "yanezc.camila@gmail.com",
+    "url": "https://github.com/CamiYanez/bog001-md-links"
+  },
   "scripts": {
     "test": "jest --verbose --coverage"
   },

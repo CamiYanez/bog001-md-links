@@ -1,10 +1,15 @@
 module.exports = {
     mdLinks,
-    isDirectory
+    isDirectory,
+    validateExtDir,
+    validateExtFile,
+    dataLinks,
+    httpRequest,
+    httpCallback,
+    httpErrorCallback
 }
 
 const fs = require('fs');
-// const { argv } = require('process');
 const pathModule = require('path')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
@@ -12,15 +17,8 @@ const MarkdownIt = require('markdown-it')
 const https = require('https');
 const http = require('http');
 
-// const path = argv[2];
-
-// mdLinks(path, true)
-//     .then(dataLinks => {
-//         console.log(dataLinks);
-//     });
-
-
-function mdLinks(path, validate) {
+function mdLinks(path, option) {
+    const validate = option.validate;
     return isDirectory(path)
         .then((directory) => {
             if (directory) {
@@ -62,6 +60,9 @@ function validateExtDir(path) {
                     sources.push(src);
                 }
             });
+            if (sources == []) {
+                return reject(new Error("No hay ningún archivo con extensión .md en el directorio indicado"))
+            }
             resolve(sources);
         })
     })
